@@ -1,6 +1,0 @@
----
-# handlers file for cyberark
-- name: Restart sshd service
-  service:
-    name: sshd
-    state: restarted
