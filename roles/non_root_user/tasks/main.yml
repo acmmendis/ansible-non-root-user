@@ -1,8 +1,7 @@
 ---
-# tasks file for uni-user
-- name: "Add user for CMDB"
+- name: Create user "{{ systemuser }}"
   user:
-    name: "{{ cmdbuser }}"
+    name: "{{ systemuser }}"
     comment: "Privileged User for Servicenow CMDB"
     append: false
     shell: /bin/bash
@@ -11,7 +10,7 @@
     state: present
 
 - name: Set account never expire
-  shell: chage -I -1 -m 0 -M 99999 -E -1 "{{ cmdbuser }}"
+  shell: chage -I -1 -m 0 -M 99999 -E -1 "{{ systemuser }}"
 
 
 - name: Copy cmdb sudoers configurations
