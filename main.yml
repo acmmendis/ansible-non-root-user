@@ -1,6 +1,7 @@
 - name: Unprivileged User Create
   hosts: all
   become: true
+  gather_facts: true
 
   tasks:
     - name: Unprivileged user
