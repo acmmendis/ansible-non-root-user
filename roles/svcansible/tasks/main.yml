@@ -1,0 +1,39 @@
+---
+# tasks file for cyberark
+- name: Add ansible service user
+  user:
+    name: "{{ sshuser }}"
+    comment: "Privileged User for Ansible automation"
+    append: false
+    shell: "/bin/bash"
+    update_password: on_create
+    state: present
+    password: "{{ sshpass | password_hash('sha512') }}"
+
+- name: Set account never expire
+  shell: chage -I -1 -m 0 -M 99999 -E -1 {{ sshuser }}
+
+- name: Public key exchange for ansible service user
+  authorized_key:
+    user: "{{ sshuser }}"
+    state: present
+    key: "{{ sshpubkey }}"
+    exclusive: True
+    manage_dir: True
+
+- name: Setup permissions for ansible service user
+  lineinfile:
+    path: "/etc/sudoers.d/{{ sshuser }}"
+    line: "{{ sshsudoers }}"
+    mode: "0440"
+    create: true
+    state: present
+    validate: /usr/sbin/visudo -cf %s
+
+- name: Remove any existing sudoers entries
+  lineinfile:
+    path: "/etc/sudoers"
+    regexp: "{{ sshuser }}"
+    state: absent
+    backup: true
+    validate: /usr/sbin/visudo -cf %s

@@ -1,0 +1,8 @@
+- name: Create Control M User
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Control-M user
+      import_role:
+        name: control-m

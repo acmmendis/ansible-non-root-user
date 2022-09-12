@@ -1,0 +1,8 @@
+- name: Create CMDB User
+  hosts: all
+  become: true
+
+  tasks:
+    - name: CMDB Service user
+      import_role:
+        name: cmdb

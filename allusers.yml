@@ -1,0 +1,17 @@
+- name: Create all mandatory users
+  hosts: all
+  become: true
+
+  tasks:
+    - name: CMDB Service user
+      import_role:
+        name: cmdb
+    - name: Control-M user
+      import_role:
+        name: control-m
+    - name: CyberArk Users
+      import_role:
+        name: cyberark
+    - name: Ansible Service user
+      import_role:
+        name: svcansible

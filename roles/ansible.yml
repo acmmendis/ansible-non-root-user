@@ -1,0 +1,8 @@
+- name: Create Ansible Service User
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Ansible Service user
+      import_role:
+        name: svcansible

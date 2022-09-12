@@ -1,0 +1,9 @@
+- name: Create CyberArk users
+  hosts: all
+  become: true
+
+  tasks:
+    - name: CyberArk Users
+      import_role:
+        name: cyberark
+

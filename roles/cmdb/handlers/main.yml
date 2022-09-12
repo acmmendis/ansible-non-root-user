@@ -1,0 +1,6 @@
+---
+# handlers file for uni-user
+- name: Restart sshd service
+  service:
+    name: sshd
+    state: restarted
