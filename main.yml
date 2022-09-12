@@ -1,8 +1,8 @@
-- name: Create CMDB User
+- name: Unprivileged User Create
   hosts: all
   become: true
 
   tasks:
-    - name: CMDB Service user
+    - name: Unprivileged user
       import_role:
-        name: cmdb
+        name: nonroot_user
