@@ -1,11 +1,18 @@
 ---
+
+- name: Generate Random Password
+  set_fact:
+    user_pass: "{{ pwd_alias }}"
+  debug:
+    msg: "{{ user_pass }}"
+
 - name: Create user "{{ systemuser }}"
   user:
     name: "{{ systemuser }}"
     comment: "{{ comments }}"
     append: false
     shell: /bin/bash
-    password: "{{ userpass | password_hash('sha512') }}"
+    password: "{{ user_pass | password_hash('sha512') }}"
     update_password: on_create
     state: present
 
