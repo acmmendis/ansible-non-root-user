@@ -5,4 +5,4 @@
   tasks:
     - name: Unprivileged user
       import_role:
-        name: nonroot_user
+        name: non_root_user
