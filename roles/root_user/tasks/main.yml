@@ -1,0 +1,21 @@
+---
+- name: Generate Random Password
+  set_fact:
+    user_pass: "{{ pwd_alias }}"
+
+- name: Create user "{{ systemuser }}"
+  user:
+    name: "{{ systemuser }}"
+    comment: "{{ comments }}"
+    append: false
+    shell: /bin/bash
+    password: "{{ user_pass | password_hash('sha512') }}"
+    update_password: on_create
+    state: present
+
+- name: Set account never expiry
+  shell: chage -d 0 -I -1 -m 0 -M 99999 -E -1 "{{ systemuser }}"
+
+- name: Retrive Password
+  debug:
+    msg: "Temporary password - {{ user_pass }}"
