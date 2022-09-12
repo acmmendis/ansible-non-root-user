@@ -1,3 +1,4 @@
 ---
-systemuser: 'n484012'
-comments: 'This is a loca non-root user'
+systemuser: "n484012"
+comments: "This is a loca non-root user"
+pwd_alias: "{{ lookup('password', '/dev/null length=10 chars=ascii_letters') }}"
