@@ -13,10 +13,10 @@ Run the main playbook which will give you the temporary password for the respect
 
 For mass creation based on inventory
 
-  *ansible-playbook main.yml -i ../ansible-dynamic-inventory/inventory/hcbi1weusubgenerigene001.yml -u svcansible --private-key ~/.ssh/svcansible_id_rsa --become'*
+  *ansible-playbook non-root.yml -i ../ansible-dynamic-inventory/inventory/hcbi1weusubgenerigene001.yml -u svcansible --private-key ~/.ssh/svcansible_id_rsa --become'*
 
 if you need to use password instead of private key, use below option and provide the password
-  *ansible-playbook main.yml   -i 180.210.73.132, -u svcansible -Kk'*
+  *ansible-playbook root.yml   -i 180.210.73.132, -u svcansible -Kk'*
 
 if you need to play on just one host
-  *ansible-playbook main.yml -i 180.210.73.132,  -u svcansible  --private-key ~/.ssh/svcansible_id_rsa --become*
+  *ansible-playbook non-root.yml -i 180.210.73.132,  -u svcansible  --private-key ~/.ssh/svcansible_id_rsa --become*
