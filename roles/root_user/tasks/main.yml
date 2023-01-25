@@ -16,15 +16,15 @@
 
 - name: Register user_status variable
   set_fact:
-    code_changed: user_status.changed
+    task_changed: user_status.changed
 
 - name: Set account never expiry
   shell: chage -I -1 -m 7 -M 90 -W 5 -E -1 "{{ systemuser }}"
 
 - name: Retrive Password
   debug:
-    msg: "Password for {{ systemuser }} - {{ user_pass }}"
-  when: code_changed
+    msg: "Password for root user {{ systemuser }} - {{ user_pass }}"
+  when: task_changed
 
 - name: "Delete sudoers file if exist"
   file:
