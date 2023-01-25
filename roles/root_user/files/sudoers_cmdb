@@ -1,3 +1,0 @@
-#root access task to be done by cmdb agent user svccmdb
-svccmdb ALL=(ALL) NOPASSWD: /sbin/dmidecode
-svccmdb ALL=(ALL) NOPASSWD: /sbin/fdisk -l

@@ -1,5 +1,5 @@
 ---
-- name: Generate Random Password
+- name: Generate a random password
   set_fact:
     user_pass: "{{ pwd_alias }}"
 
@@ -10,13 +10,32 @@
     append: false
     shell: /bin/bash
     password: "{{ user_pass | password_hash('sha512') }}"
-    groups: wheel
     update_password: on_create
     state: present
+  register: user_status
+
+- name: Register user_status variable
+  set_fact:
+    task_changed: user_status.changed
 
 - name: Set account never expiry
-  shell: chage -d 0 -I -1 -m 0 -M 99999 -E -1 "{{ systemuser }}"
+  shell: chage -I -1 -m 7 -M 90 -W 5 -E -1 "{{ systemuser }}"
 
 - name: Retrive Password
   debug:
-    msg: "Temporary password - {{ user_pass }}"
+    msg: "Password for root user {{ systemuser }} - {{ user_pass }}"
+  when: task_changed
+
+- name: "Delete sudoers file if exist"
+  file:
+   path: "/etc/sudoers.d/{{ systemuser }}"
+   state: absent
+
+- name: Set up password less auth
+  lineinfile:
+    path: "/etc/sudoers.d/{{ systemuser }}"
+    line: "{{ systemuser }}{{ sudoers }}"
+    mode: '0440'
+    create: true
+    state: present
+    validate: /usr/sbin/visudo -cf %s
