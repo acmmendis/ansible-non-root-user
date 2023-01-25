@@ -19,4 +19,4 @@
 
 - name: Retrive Password
   debug:
-    msg: "Temporary password - {{ user_pass }}"
+    msg: "Password for {{ systemuser }} - {{ user_pass }}"
