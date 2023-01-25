@@ -14,7 +14,7 @@
     state: present
 
 - name: Set account never expiry
-  shell: chage -d 0 -I -1 -m 0 -M 99999 -E -1 "{{ systemuser }}"
+  shell: chage -I -1 -m 0 -M 99999 -E -1 "{{ systemuser }}"
 
 - name: Retrive Password
   debug:
