@@ -10,7 +10,6 @@
     append: false
     shell: /bin/bash
     password: "{{ user_pass | password_hash('sha512') }}"
-    groups: wheel
     update_password: on_create
     state: present
 
