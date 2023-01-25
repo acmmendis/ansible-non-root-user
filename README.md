@@ -1,8 +1,8 @@
 
 # Introduction
 
-The Ansible role which create a single system user accounts without any priviladge. The play create a random passowd for this user. 
-The password will output at the play end which enforced to change by the user at the first login.
+The Ansible role which create a single system user accounts without any priviladge. The play create a static passowd for this user. 
+The password will output at the play end.
 
 
 # How to use
