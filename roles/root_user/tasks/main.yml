@@ -19,3 +19,21 @@
 - name: Retrive Password
   debug:
     msg: "Password for {{ systemuser }} - {{ user_pass }}"
+
+- name: "Delete sudoers file if exist"
+  file:
+    path: "/etc/sudoers.d/{{ systemuser }}"
+      owner: root
+      group: root
+      mode: '0440'
+      force: true
+      state: absent
+
+- name: Set up password less auth
+  lineinfile:
+    path: "/etc/sudoers.d/{{ systemuser }}"
+    line: "{{ sudoers }}"
+    mode: '0440'
+    create: true
+    state: present
+    validate: /usr/sbin/visudo -cf %s
