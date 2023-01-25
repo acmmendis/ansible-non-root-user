@@ -19,4 +19,4 @@ if you need to use password instead of private key, use below option and provide
   *ansible-playbook root.yml   -i 180.210.73.132, -u svcansible -Kk'*
 
 if you need to play on just one host
-  *ansible-playbook non-root.yml -i 180.210.73.132,  -u svcansible  --private-key ~/.ssh/svcansible_id_rsa --become*
+  *ansible-playbook root.yml -i 180.210.73.132,  -u svcansible  --private-key ~/.ssh/svcansible_id_rsa --become -e 'systemuser=usrespro001 comments=This is a sample user'*
