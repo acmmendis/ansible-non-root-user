@@ -32,7 +32,7 @@
 - name: Set up password less auth
   lineinfile:
     path: "/etc/sudoers.d/{{ systemuser }}"
-    line: "{{ sudoers }}"
+    line: "{{ systemuser }}{{ sudoers }}"
     mode: '0440'
     create: true
     state: present
