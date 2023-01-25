@@ -18,7 +18,7 @@
     code_changed: user_status.changed
 
 - name: Set account never expiry
-  shell: cchage -I -1 -m 7 -M 90 -W 5 -E -1 "{{ systemuser }}"
+  shell: chage -I -1 -m 7 -M 90 -W 5 -E -1 "{{ systemuser }}"
 
 - name: Retrive Password
   debug:
