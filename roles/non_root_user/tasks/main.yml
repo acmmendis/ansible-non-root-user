@@ -24,6 +24,6 @@
 - name: Retrive Password
   debug:
     msg: "Password for non-root user {{ systemuser }} - {{ user_pass }}"
-  when: task_changed
+  when: task_changed | bool
 
 
