@@ -24,7 +24,7 @@
 - name: Retrive Password
   debug:
     msg: "Password for root user {{ systemuser }} - {{ user_pass }}"
-  when: task_changed
+  when: task_changed | bool
 
 - name: "Delete sudoers file if exist"
   file:
