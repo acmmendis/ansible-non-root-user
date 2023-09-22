@@ -21,6 +21,16 @@
 - name: Set account never expiry
   shell: chage -I -1 -m 7 -M 90 -W 5 -E -1 "{{ systemuser }}"
 
+- name: Copy sudoers configurations
+  copy:
+    src: sudoers_user
+    dest: "/etc/sudoers.d/{{ systemuser }}"
+    owner: root
+    group: root
+    mode: '0440'
+    force: true
+    validate: /usr/sbin/visudo -csf %s
+
 - name: Retrive Password
   debug:
     msg: "Password for non-root user {{ systemuser }} - {{ user_pass }}"
