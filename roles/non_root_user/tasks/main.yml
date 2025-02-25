@@ -18,7 +18,7 @@
   set_fact:
     task_changed: user_status.changed
 
-- name: Set account never expiry
+- name: Set account and password expiry
   shell: chage -I -1 -m 7 -M 90 -W 5 -E -1 "{{ nonrootuser }}"
 
 - name: Copy sudoers configurations
