@@ -1,3 +1,0 @@
----
-comments: "root user"
-pwd_alias: "{{ lookup('password', '/dev/null length=21 chars=ascii_letters') }}"
