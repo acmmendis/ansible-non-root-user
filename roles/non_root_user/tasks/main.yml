@@ -30,6 +30,7 @@
     mode: '0440'
     force: true
     validate: /usr/sbin/visudo -csf %s
+  when: sudoers_user_file is defined
 
 - name: Retrieve Password
   debug:

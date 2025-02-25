@@ -3,7 +3,7 @@
 The Ansible roles create system user accounts. There are two roles:
 
 1. `root_user`: Creates a root user account.
-2. `non_root_user`: Creates a non-root user account and requires a sudoers file to be provided as a variable.
+2. `non_root_user`: Creates a non-root user account with sudoers privilage. You need provide a valide sudoers file to be copied as a variable. The playbook will ignore the copying sudoers file if it is not provided.
 
 The play creates a static one time password for the user, which will be output at the end of the play. This password has to change on the first login.
 
@@ -24,5 +24,7 @@ ansible-playbook root.yml -i inventory.yml -u svcansible --private-key ~/.ssh/sv
 ### For creating a non-root user
 
 ```sh
-ansible-playbook non-root.yml -i inventory.yml -u svcansible --private-key ~/.ssh/svcansible_id_rsa --become -e 'systemuser=usrespro001 comments="This is a non=root user with sudoers access" sudoers_user_file=/path/to/sudoers_user_file'
+ansible-playbook non-root.yml -i inventory.yml -u svcansible --private-key ~/.ssh/svcansible_id_rsa --become -e 'systemuser=usrespro001 comments="This is a non-root user with sudoers access" sudoers_user_file=/path/to/sudoers_user_file'
+
+ansible-playbook non-root.yml -i inventory.yml -u svcansible --private-key ~/.ssh/svcansible_id_rsa --become -e 'systemuser=usrespro001 comments="This is a non-root user with sudoers access"'
 ```
