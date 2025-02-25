@@ -3,7 +3,13 @@
   set_fact:
     user_pass: "{{ pwd_alias }}"
 
-- name: Create user "{{ systemuser }}"
+- name: Prompt for sudoers_user file path
+  vars_prompt:
+    - name: sudoers_user_file
+      prompt: "Enter the path to the sudoers_user file"
+      private: no
+
+- name: Create non-root user - "{{ systemuser }}"
   user:
     name: "{{ systemuser }}"
     comment: "{{ comments }}"
@@ -23,7 +29,7 @@
 
 - name: Copy sudoers configurations
   copy:
-    src: sudoers_user
+    src: "{{ sudoers_user_file }}"
     dest: "/etc/sudoers.d/{{ systemuser }}"
     owner: root
     group: root
@@ -31,7 +37,7 @@
     force: true
     validate: /usr/sbin/visudo -csf %s
 
-- name: Retrive Password
+- name: Retrieve Password
   debug:
     msg: "Password for non-root user {{ systemuser }} - {{ user_pass }}"
   when: task_changed | bool

@@ -1,22 +1,28 @@
-
 # Introduction
 
-The Ansible role which create a single system user accounts without any priviladge. The play create a static passowd for this user. 
-The password will output at the play end.
+The Ansible roles create system user accounts. There are two roles:
+1. `root_user`: Creates a root user account.
+2. `non_root_user`: Creates a non-root user account and requires a sudoers file to be provided as a variable.
 
+The play creates a static password for the user, which will be output at the end of the play.
 
 # How to use
 
-Pull the repo and chnage the *roles/non_root_user/var/main.yml* as per your new users information. Add required permissions in *roles/non_root_user/files/sudoers_user*
+1. Pull the repository and change the *roles/non_root_user/vars/main.yml* or *roles/root_user/vars/main.yml* as per your new user's information. Add required permissions in *roles/non_root_user/files/sudoers_user* if using the non-root user role.
 
-Run the main playbook which will give you the temporary password for the respected user.
+2. Run the main playbook which will give you the temporary password for the respective user.
 
-For mass creation based on inventory
+## Example Commands
 
-  *ansible-playbook non-root.yml -i ../ansible-dynamic-inventory/inventory/hcbi1weusubgenerigene001.yml -u svcansible --private-key ~/.ssh/svcansible_id_rsa --become -e 'systemuser=usrespro001 comments="This is a test user"'*
+### For creating a root user
 
-if you need to use password instead of private key, use below option and provide the password
-  *ansible-playbook root.yml   -i 180.210.73.132, -u svcansible -Kk'*
+```sh
+ansible-playbook root.yml -i inventory.yml -u svcansible --private-key ~/.ssh/svcansible_id_rsa --become -e 'systemuser=rootuser comments="This is a root user"'
+```
 
-if you need to play on just one host
-  *ansible-playbook root.yml -i 180.210.73.132,  -u svcansible  --private-key ~/.ssh/svcansible_id_rsa --become -e 'systemuser=usrespro001 comments="This is a test user"'*
+### For creating a non-root user
+
+```sh
+ansible-playbook non-root.yml -i inventory.yml -u svcansible --private-key ~/.ssh/svcansible_id_rsa --become -e 'systemuser=usrespro001 comments="This is a non=root user with sudoers access" sudoers_user_file=/path/to/sudoers_user_file'
+```
+
