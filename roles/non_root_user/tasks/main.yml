@@ -3,9 +3,9 @@
   set_fact:
     user_pass: "{{ pwd_alias }}"
 
-- name: Create user "{{ systemuser }}"
+- name: Create non-root user - "{{ nonrootuser }}"
   user:
-    name: "{{ systemuser }}"
+    name: "{{ nonrootuser }}"
     comment: "{{ comments }}"
     append: false
     shell: /bin/bash
@@ -18,22 +18,23 @@
   set_fact:
     task_changed: user_status.changed
 
-- name: Set account never expiry
-  shell: chage -I -1 -m 7 -M 90 -W 5 -E -1 "{{ systemuser }}"
+- name: Set account and password expiry
+  shell: chage -I -1 -m 7 -M 90 -W 5 -E -1 "{{ nonrootuser }}"
 
 - name: Copy sudoers configurations
   copy:
-    src: sudoers_user
-    dest: "/etc/sudoers.d/{{ systemuser }}"
+    src: "{{ sudoers_user_file }}"
+    dest: "/etc/sudoers.d/{{ nonrootuser }}"
     owner: root
     group: root
     mode: '0440'
     force: true
     validate: /usr/sbin/visudo -csf %s
+  when: sudoers_user_file is defined
 
-- name: Retrive Password
+- name: Retrieve Password
   debug:
-    msg: "Password for non-root user {{ systemuser }} - {{ user_pass }}"
+    msg: "Password for non-root user {{ nonrootuser }} - {{ user_pass }}"
   when: task_changed | bool
 
 

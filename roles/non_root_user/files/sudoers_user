@@ -1,2 +1,0 @@
-#root access task should listed with the permission here
-#username ALL=(ALL) NOPASSWD: /usr/sbin/lshw
