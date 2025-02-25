@@ -18,13 +18,13 @@ The play creates a static one time password for the user, which will be output a
 ### For creating a root user
 
 ```sh
-ansible-playbook root.yml -i inventory.yml -u svcansible --private-key ~/.ssh/svcansible_id_rsa --become -e 'systemuser=rootuser comments="This is a root user"'
+ansible-playbook root.yml -i inventory.yml -u ansibleuser --private-key ~/.ssh/ansibleuser_id_rsa --become -e 'systemuser=rootuser comments="This is a root user"'
 ```
 
 ### For creating a non-root user
 
 ```sh
-ansible-playbook non-root.yml -i inventory.yml -u svcansible --private-key ~/.ssh/svcansible_id_rsa --become -e 'systemuser=usrespro001 comments="This is a non-root user with sudoers access" sudoers_user_file=/path/to/sudoers_user_file'
+ansible-playbook non-root.yml -i inventory.yml -u ansibleuser --private-key ~/.ssh/ansibleuser_id_rsa --become -e 'systemuser=user001 comments="This is a non-root user with sudoers access" sudoers_user_file=/path/to/sudoers_user_file'
 
-ansible-playbook non-root.yml -i inventory.yml -u svcansible --private-key ~/.ssh/svcansible_id_rsa --become -e 'systemuser=usrespro001 comments="This is a non-root user with sudoers access"'
+ansible-playbook non-root.yml -i inventory.yml -ansibleuser --private-key ~/.ssh/ansibleuser_id_rsa --become -e 'systemuser=user001 comments="This is a non-root user with sudoers access"'
 ```
