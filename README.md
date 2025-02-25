@@ -4,7 +4,7 @@ The Ansible roles create system user accounts. There are two roles:
 1. `root_user`: Creates a root user account.
 2. `non_root_user`: Creates a non-root user account and requires a sudoers file to be provided as a variable.
 
-The play creates a static password for the user, which will be output at the end of the play.
+The play creates a static one time password for the user, which will be output at the end of the play. This password has to change on the first login.
 
 # How to use
 

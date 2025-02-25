@@ -3,15 +3,9 @@
   set_fact:
     user_pass: "{{ pwd_alias }}"
 
-- name: Prompt for sudoers_user file path
-  vars_prompt:
-    - name: sudoers_user_file
-      prompt: "Enter the path to the sudoers_user file"
-      private: no
-
-- name: Create non-root user - "{{ systemuser }}"
+- name: Create non-root user - "{{ nonrootuser }}"
   user:
-    name: "{{ systemuser }}"
+    name: "{{ nonrootuser }}"
     comment: "{{ comments }}"
     append: false
     shell: /bin/bash
@@ -25,12 +19,12 @@
     task_changed: user_status.changed
 
 - name: Set account never expiry
-  shell: chage -I -1 -m 7 -M 90 -W 5 -E -1 "{{ systemuser }}"
+  shell: chage -I -1 -m 7 -M 90 -W 5 -E -1 "{{ nonrootuser }}"
 
 - name: Copy sudoers configurations
   copy:
     src: "{{ sudoers_user_file }}"
-    dest: "/etc/sudoers.d/{{ systemuser }}"
+    dest: "/etc/sudoers.d/{{ nonrootuser }}"
     owner: root
     group: root
     mode: '0440'
@@ -39,7 +33,7 @@
 
 - name: Retrieve Password
   debug:
-    msg: "Password for non-root user {{ systemuser }} - {{ user_pass }}"
+    msg: "Password for non-root user {{ nonrootuser }} - {{ user_pass }}"
   when: task_changed | bool
 
 
